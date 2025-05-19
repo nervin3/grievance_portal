@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Submit Grievance{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <h3 class="mb-4 text-center">Submit a Grievance</h3>
+
+      <form method="POST" action="{{ url_for('submit_grievance') }}">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="form-control"
+            required
+            autofocus
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="issue" class="form-label">Issue Description</label>
+          <textarea
+            id="issue"
+            name="issue"
+            rows="4"
+            class="form-control"
+            required
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="department" class="form-label">Department</label>
+          <select
+            id="department"
+            name="department"
+            class="form-select"
+            required
+          >
+            <option value="" disabled selected>Select department</option>
+            {% for dept in departments %}
+              <option value="{{ dept }}">{{ dept }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="severity" class="form-label">Severity</label>
+          <select
+            id="severity"
+            name="severity"
+            class="form-select"
+            required
+          >
+            <option value="" disabled selected>Select severity</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Submit Grievance</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

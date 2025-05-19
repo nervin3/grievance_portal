@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Grievance Portal{% endblock %}</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  
+  <style>
+    body {
+      background-color: #FFEDFA;
+      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #EC7FA9 !important;
+      box-shadow: 0 4px 10px rgba(190, 89, 133, 0.25);
+    }
+    .navbar-brand, .navbar-nav .nav-link, .navbar .btn {
+      color: #fff !important;
+    }
+    .navbar .btn-outline-light {
+      border-color: #FFB8E0;
+      color: #FFB8E0;
+    }
+    .navbar .btn-outline-light:hover {
+      background-color: #BE5985;
+      border-color: #BE5985;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background-color: #EC7FA9;
+      border-color: #EC7FA9;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .btn-primary:hover, .btn-primary:focus {
+      background-color: #BE5985;
+      border-color: #BE5985;
+      color: #fff;
+    }
+
+    .btn-success {
+      background-color: #FFB8E0;
+      border-color: #FFB8E0;
+      color: #333;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .btn-success:hover, .btn-success:focus {
+      background-color: #EC7FA9;
+      border-color: #EC7FA9;
+      color: #fff;
+    }
+
+    /* Form inputs */
+    .form-control:focus {
+      border-color: #FFB8E0;
+      box-shadow: 0 0 0 0.2rem rgba(255, 184, 224, 0.25);
+      transition: 0.3s;
+    }
+
+    /* Cards */
+    .card {
+      border: none;
+      box-shadow: 0 4px 15px rgba(190, 89, 133, 0.15);
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    /* Alerts */
+    .alert-danger {
+      background-color: #F8D7DA;
+      color: #842029;
+      border-color: #F5C2C7;
+    }
+
+    /* Simple fade in animation for content */
+    main.container > * {
+      animation: fadeIn 0.7s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand fs-3 fw-bold" href="{{ url_for('index') }}">
+        <i class="bi bi-heart-fill"></i> Grievance Portal
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+        {% if 'username' in session and session['username'] %}
+          <span class="navbar-text text-white me-3">
+            Welcome, {{ session['username'] }}!
+          </span>
+          <a class="btn btn-outline-light" href="{{ url_for('logout') }}">
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </a>
+        {% else %}
+          <a class="btn btn-outline-light ms-auto" href="{{ url_for('index') }}">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container mt-5">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Disable submit button after click -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.querySelector("form");
+      if (form) {
+        form.addEventListener("submit", function (e) {
+          const submitBtn = form.querySelector("button[type='submit']");
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.classList.add("btn-secondary");
+            submitBtn.classList.remove("btn-primary", "btn-success");
+            submitBtn.innerText = "Submitting...";
+          }
+        });
+      }
+    });
+  </script>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

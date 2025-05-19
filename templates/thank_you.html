@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Thank You - Grievance Portal{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card text-center">
+      <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+      <h2 class="mt-3 mb-3 text-primary">Thank You!</h2>
+      <p>Your grievance has been submitted successfully and forwarded to the concerned department.</p>
+
+      <div class="text-start mt-4">
+        <h5>Grievance Details</h5>
+        <ul class="list-group">
+          <li class="list-group-item"><strong>Title:</strong> {{ title }}</li>
+          <li class="list-group-item"><strong>Issue:</strong> {{ issue }}</li>
+          <li class="list-group-item"><strong>Department:</strong> {{ department }}</li>
+          <li class="list-group-item"><strong>Severity:</strong> {{ severity }}</li>
+        </ul>
+      </div>
+
+      <a href="{{ url_for('submit_grievance') }}" class="btn btn-primary mt-4">
+        <i class="bi bi-pencil-square"></i> Submit Another Grievance
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
